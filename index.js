@@ -5,13 +5,8 @@ import { createClient } from '@supabase/supabase-js'
 app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
 // Route untuk menghitung akar kuadrat
-app.get('/sqrt', async (req, res) => {
+app.get('/api/sqrt', async (req, res) => {
   // get number from query string
   const number = parseFloat(req.query.number);
   const client = createClient(process.env.SUPABASE_URL ?? '', process.env.SUPABASE_KEY ?? '', {
