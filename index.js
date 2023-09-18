@@ -4,6 +4,10 @@ import { createClient } from '@supabase/supabase-js'
 
 app.use(express.json());
 const PORT = process.env.PORT || 3000;
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 // Route untuk menghitung akar kuadrat
 app.get('/api/sqrt', async (req, res) => {
