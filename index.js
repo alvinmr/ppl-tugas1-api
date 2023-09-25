@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-import { createClient } from '@supabase/supabase-js'
+const {createClient} = require('@supabase/supabase-js');
+// import { createClient } from '@supabase/supabase-js'
 
 app.use(express.json());
 const PORT = process.env.PORT || 3000;
@@ -50,6 +51,26 @@ app.get('/api/sqrt', async (req, res) => {
       sqrt: guess,
       time: end - start
     }
+  });
+});
+
+app.get('/api/sql/sqrt', async (req, res) => {
+  // get number from query string
+  const number = parseFloat(req.query.number);
+  const client = createClient(process.env.SUPABASE_URL ?? '', process.env.SUPABASE_KEY ?? '', {
+    auth : {
+      persistSession: false,
+    }
+  })
+
+  // supabase call procedure
+  const { data, error } = await client.rpc('count_sqrt', { n: number })
+  if (error) {
+    return res.status(400).json({ error: error });
+  }
+
+  res.json({
+    data: data
   });
 });
 

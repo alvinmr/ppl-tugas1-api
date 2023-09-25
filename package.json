@@ -1,6 +1,5 @@
 {
   "name": "akar_kuadrat_api",
-  "module": "index.js",
   "scripts": {
     "start": "bun index.js"
   },
