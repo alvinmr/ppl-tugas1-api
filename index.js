@@ -14,13 +14,15 @@ app.use((req, res, next) => {
 app.get('/api/sqrt', async (req, res) => {
   // get number from query string
   const number = parseFloat(req.query.number);
+
+  // continue with your code logic
   const client = createClient(process.env.SUPABASE_URL ?? '', process.env.SUPABASE_KEY ?? '', {
     auth : {
       persistSession: false,
     }
   })
 
-  if (isNaN(number) || number < 0) {
+  if (!Number.isFinite(number) || number < 0) {
     return res.status(400).json({ error: 'Input tidak valid, harus berupa angka dan bilangan bulat' });
   }
 
